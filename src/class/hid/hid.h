@@ -360,7 +360,8 @@ typedef enum
 typedef struct TU_ATTR_PACKED
 {
   uint8_t  modifier; ///< Modifiers
-  uint8_t  keys[32]; ///< 256 Keys
+  uint8_t  keys[13]; ///< 104 Keys
+  uint8_t  custom;   ///< Custom key
 }hid_nkrokeyboard_report_t;
 
 /// @}
