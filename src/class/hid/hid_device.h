@@ -438,7 +438,7 @@ static inline bool  tud_hid_gamepad_report(uint8_t report_id, int8_t x, int8_t y
       HID_LOGICAL_MIN  ( 0                                      )  ,\
       HID_LOGICAL_MAX  ( 1                                      )  ,\
       HID_REPORT_SIZE  ( 1                                      )  ,\
-      HID_REPORT_COUNT ( (uint8_t)256                           )  ,\
+      HID_REPORT_COUNT ( 255                                    )  ,\
       HID_INPUT        ( HID_DATA | HID_VARIABLE | HID_ABSOLUTE )  ,\
   HID_COLLECTION_END \
 
