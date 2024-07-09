@@ -58,6 +58,11 @@ typedef struct
 //  uint8_t out_len;     // length of OUT report
 } tuh_hid_report_info_t;
 
+typedef struct {
+  uint8_t daddr;
+  tusb_desc_interface_t desc;
+} tuh_itf_info_t;
+
 //--------------------------------------------------------------------+
 // Interface API
 //--------------------------------------------------------------------+

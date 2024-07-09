@@ -165,7 +165,7 @@ bool tud_hid_n_abs_mouse_report(uint8_t instance, uint8_t report_id, uint8_t but
 }
 
 bool tud_hid_n_gamepad_report(uint8_t instance, uint8_t report_id,
-                              int8_t x, int8_t y, int8_t z, int8_t rz, int8_t rx, int8_t ry, uint8_t hat, uint32_t buttons) {
+                              uint16_t x, uint16_t y, uint16_t z, uint16_t rz, uint16_t rx, uint16_t ry, uint8_t hat, uint32_t buttons) {
   hid_gamepad_report_t report =
   {
     .x       = x,

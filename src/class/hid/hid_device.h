@@ -76,7 +76,7 @@ bool tud_hid_n_abs_mouse_report(uint8_t instance, uint8_t report_id, uint8_t but
 
 // Gamepad: convenient helper to send gamepad report if application
 // use template layout report TUD_HID_REPORT_DESC_GAMEPAD
-bool tud_hid_n_gamepad_report(uint8_t instance, uint8_t report_id, int8_t x, int8_t y, int8_t z, int8_t rz, int8_t rx, int8_t ry, uint8_t hat, uint32_t buttons);
+bool tud_hid_n_gamepad_report(uint8_t instance, uint8_t report_id, uint16_t x, uint16_t y, uint16_t z, uint16_t rz, uint16_t rx, uint16_t ry, uint8_t hat, uint32_t buttons);
 
 //--------------------------------------------------------------------+
 // Application API (Single Port)
@@ -87,7 +87,7 @@ static inline uint8_t tud_hid_get_protocol(void);
 static inline bool    tud_hid_report(uint8_t report_id, void const* report, uint16_t len);
 static inline bool    tud_hid_keyboard_report(uint8_t report_id, uint8_t modifier, uint8_t keycode[6]);
 static inline bool    tud_hid_mouse_report(uint8_t report_id, uint8_t buttons, int8_t x, int8_t y, int8_t vertical, int8_t horizontal);
-static inline bool    tud_hid_gamepad_report(uint8_t report_id, int8_t x, int8_t y, int8_t z, int8_t rz, int8_t rx, int8_t ry, uint8_t hat, uint32_t buttons);
+static inline bool    tud_hid_gamepad_report(uint8_t report_id, uint16_t x, uint16_t y, uint16_t z, uint16_t rz, uint16_t rx, uint16_t ry, uint8_t hat, uint32_t buttons);
 
 //--------------------------------------------------------------------+
 // Callbacks (Weak is optional)
@@ -159,7 +159,7 @@ static inline bool tud_hid_abs_mouse_report(uint8_t report_id, uint8_t buttons, 
   return tud_hid_n_abs_mouse_report(0, report_id, buttons, x, y, vertical, horizontal);
 }
 
-static inline bool  tud_hid_gamepad_report(uint8_t report_id, int8_t x, int8_t y, int8_t z, int8_t rz, int8_t rx, int8_t ry, uint8_t hat, uint32_t buttons)
+static inline bool  tud_hid_gamepad_report(uint8_t report_id, uint16_t x, uint16_t y, uint16_t z, uint16_t rz, uint16_t rx, uint16_t ry, uint8_t hat, uint32_t buttons)
 {
   return tud_hid_n_gamepad_report(0, report_id, x, y, z, rz, rx, ry, hat, buttons);
 }
@@ -381,10 +381,10 @@ static inline bool  tud_hid_gamepad_report(uint8_t report_id, int8_t x, int8_t y
     HID_USAGE          ( HID_USAGE_DESKTOP_RZ                   ) ,\
     HID_USAGE          ( HID_USAGE_DESKTOP_RX                   ) ,\
     HID_USAGE          ( HID_USAGE_DESKTOP_RY                   ) ,\
-    HID_LOGICAL_MIN    ( 0x81                                   ) ,\
-    HID_LOGICAL_MAX    ( 0x7f                                   ) ,\
+    HID_LOGICAL_MIN    ( 0x00                                   ) ,\
+    HID_LOGICAL_MAX_N  ( 0x03FF, 2                              ) ,\
     HID_REPORT_COUNT   ( 6                                      ) ,\
-    HID_REPORT_SIZE    ( 8                                      ) ,\
+    HID_REPORT_SIZE    ( 16                                     ) ,\
     HID_INPUT          ( HID_DATA | HID_VARIABLE | HID_ABSOLUTE ) ,\
     /* 8 bit DPad/Hat Button Map  */ \
     HID_USAGE_PAGE     ( HID_USAGE_PAGE_DESKTOP                 ) ,\
