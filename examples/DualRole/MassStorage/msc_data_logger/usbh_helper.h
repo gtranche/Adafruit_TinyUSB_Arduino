@@ -40,13 +40,10 @@
   #if defined(ARDUINO_METRO_ESP32S2)
     Adafruit_USBH_Host USBHost(&SPI, 15, 14);
   #elif defined(ARDUINO_ADAFRUIT_FEATHER_ESP32_V2)
-    Adafruit_USBH_Host USBHost(&SPI, 27, 33);
-  #elif defined(ARDUINO_METRO_ESP32S3) || defined(ADAFRUIT_METRO_M4_EXPRESS) || defined(ADAFRUIT_METRO_M0_EXPRESS)
-    // For Metro shape CS and INT are pin 10, 9 (host shield default)
-    Adafruit_USBH_Host USBHost(&SPI, 10, 9);
+    Adafruit_USBH_Host USBHost(&SPI, 33, 15);
   #else
-    // default to FeatherWing USB Host MAX3421E: CS and INT are pin D11, D10
-    Adafruit_USBH_Host USBHost(&SPI, 11, 10);
+    // Default CS and INT are pin 10, 9
+    Adafruit_USBH_Host USBHost(&SPI, 10, 9);
   #endif
 #else
   // Native USB Host such as rp2040
@@ -62,14 +59,14 @@ static void rp2040_configure_pio_usb(void) {
   //while ( !Serial ) delay(10);   // wait for native usb
   Serial.println("Core1 setup to run TinyUSB host with pio-usb");
 
-  // Check for CPU frequency, must be multiple of 120Mhz for bit-banging USB
+  // Check for CPU frequency, must be multiple of 12 Mhz for bit-banging USB
   uint32_t cpu_hz = clock_get_hz(clk_sys);
-  if (cpu_hz != 120000000UL && cpu_hz != 240000000UL) {
+  if (cpu_hz % 12000000UL) {
     while (!Serial) {
       delay(10);   // wait for native usb
     }
-    Serial.printf("Error: CPU Clock = %lu, PIO USB require CPU clock must be multiple of 120 Mhz\r\n", cpu_hz);
-    Serial.printf("Change your CPU Clock to either 120 or 240 Mhz in Menu->CPU Speed \r\n");
+    Serial.printf("Error: CPU Clock = %lu, PIO USB require CPU clock must be multiple of 12 Mhz\r\n", cpu_hz);
+    Serial.printf("Change your CPU Clock to 12*n Mhz in Menu->CPU Speed \r\n");
     while (1) {
       delay(1);
     }

@@ -40,8 +40,7 @@ uint8_t const desc_hid_report[] = {
     TUD_HID_REPORT_DESC_MOUSE()
 };
 
-// USB HID object. For ESP32 these values cannot be changed after this declaration
-// desc report, desc len, protocol, interval, use out endpoint
+// USB HID object: desc report, desc len, protocol, interval, use out endpoint
 Adafruit_USBD_HID usb_hid(desc_hid_report, sizeof(desc_hid_report), HID_ITF_PROTOCOL_MOUSE, 2, false);
 
 //------------- Low pass filter with Butterworth -------------//
@@ -72,9 +71,6 @@ void setup() {
   // init host stack on controller (rhport) 1
   // For rp2040: this is called in core1's setup1()
   USBHost.begin(1);
-
-  // FeatherWing USB Host use MAX3421E's GPIO0 as VBUS enable (active high)
-  USBHost.max3421_writeIOPINS1(0x01, false);
 #endif
 
   //while ( !Serial ) delay(10);   // wait for native usb
